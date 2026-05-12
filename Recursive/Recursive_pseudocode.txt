@@ -1,0 +1,105 @@
+Algorithm isTriangle(a, b, c)
+{
+    if (a + b > c) AND (a + c > b) AND (b + c > a)
+        return TRUE;
+    else
+        return FALSE;
+}
+-------------------------------------------------------
+Algorithm Merge(arr[], left, mid, right)
+{
+    n1 ← mid - left + 1;
+    n2 ← right - mid;
+
+    CREATE leftArr[n1];
+    CREATE rightArr[n2];
+    // copy data into temporary arrays
+    for i ← 0 to n1 - 1 step 1 do
+    {
+        leftArr[i] ← arr[left + i];
+    }
+    for j ← 0 to n2 - 1 step 1 do
+    {
+        rightArr[j] ← arr[mid + 1 + j];
+    }
+    i ← 0;
+    j ← 0;
+    k ← left;
+    // merge the two sorted arrays
+    while (i < n1) AND (j < n2) do
+    {
+        if leftArr[i] <= rightArr[j]
+        {
+            arr[k] ← leftArr[i];
+            i ← i + 1;
+        }else
+        {
+            arr[k] ← rightArr[j];
+            j ← j + 1;
+        }
+        k ← k + 1;
+    }
+    // copy remaining elements from left array
+    while i < n1 do
+    {
+        arr[k] ← leftArr[i];
+        i ← i + 1;
+        k ← k + 1;
+    }
+    // copy remaining elements from right array
+    while j < n2 do
+    {
+        arr[k] ← rightArr[j];
+        j ← j + 1;
+        k ← k + 1;
+    }
+}
+-------------------------------------------------------
+Algorithm MergeSort(arr[], left, right)
+{
+    // base case
+    if left >= right
+        return;
+    mid ← (left + right) / 2;
+    // sort left & right halves
+    MergeSort(arr, left, mid);
+    MergeSort(arr, mid + 1, right);
+    Merge(arr, left, mid, right);
+}
+-------------------------------------------------------
+Algorithm RecursiveSolution(arr[], n, idx)
+{
+    // stop if less than 3 elements remain
+    if idx + 2 >= n
+        return FALSE;
+
+    a ← arr[idx];
+    b ← arr[idx + 1];
+    c ← arr[idx + 2];
+    // check current triplet
+    if isTriangle(a, b, c)
+        return TRUE;
+    // move to next triplet
+    return RecursiveSolution(arr, n, idx + 1);
+}
+-------------------------------------------------------
+Algorithm OptimisedSolutionRecursive(arr[], n)
+{
+    // sort array first
+    MergeSort(arr, 0, n - 1);
+    // check consecutive triplets
+    return RecursiveSolution(arr, n, 0);
+}
+-------------------------------------------------------
+Algorithm Solve()
+{
+    // test input arrays
+    arr1[] ← {10, 50, 1};
+    arr2[] ← {10, 2, 5, 1, 8, 20};
+    n1 ← size of arr1;
+    n2 ← size of arr2;
+
+    // print results
+    write OptimisedSolutionRecursive(arr1, n1);
+    write OptimisedSolutionRecursive(arr2, n2);
+}
