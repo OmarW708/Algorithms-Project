@@ -1,0 +1,44 @@
+FUNCTION isTriangle(a, b, c):
+
+    IF (a + b > c) AND (a + c > b) AND (b + c > a):
+        RETURN 1
+    ELSE:
+        RETURN 0
+
+═══════════════════════════════════════════════════════
+
+FUNCTION bruteForce(arr[], n):
+
+    // OUTER LOOP — picks the FIRST element of the triplet
+    FOR i FROM 0 TO n-1:
+        // MIDDLE LOOP — picks the SECOND element
+        FOR j FROM i+1 TO n-1:
+            // INNER LOOP — picks the THIRD element
+            FOR k FROM j+1 TO n-1:
+
+                a = arr[i]
+                b = arr[j]
+                c = arr[k]
+
+                // Check triangle inequality on current triplet
+                condition1 = (a + b > c)
+                condition2 = (a + c > b)
+                condition3 = (b + c > a)
+
+                IF condition1 AND condition2 AND condition3:
+                    RETURN 1        // valid triangle found → stops immediately
+
+    RETURN 0                        // no triangle found in the entire array
+
+═══════════════════════════════════════════════════════
+
+MAIN:
+
+    arr1[] = {10, 50, 1}
+    arr2[] = {10, 2, 5, 1, 8, 20}
+
+    n1 = size of arr1
+    n2 = size of arr2
+
+    PRINT bruteForce(arr1, n1)      // expected → 0
+    PRINT bruteForce(arr2, n2)      // expected → 1
