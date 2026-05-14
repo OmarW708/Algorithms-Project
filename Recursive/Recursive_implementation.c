@@ -64,15 +64,32 @@ int optimisedSolutionRecursive(int arr[], int n) {
 
 // ----------- Solve -----------
 void solve() {
-    int arr1[] = {10, 50, 1};
-    int arr2[] = {10, 2, 5, 1, 8, 20};
 
-    int n1 = sizeof(arr1) / sizeof(arr1[0]);
-    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+    int n;
 
-    printf("%d\n", optimisedSolutionRecursive(arr1, n1));
-    printf("%d\n", optimisedSolutionRecursive(arr2, n2));
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    int* arr = (int*)malloc(n * sizeof(int));
+
+    printf("Enter array elements:\n");
+
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int result = optimisedSolutionRecursive(arr, n);
+
+
+    if (result == 1)
+        printf("Valid triangle exists\n");
+    else
+        printf("No valid triangle\n");
+
+
+    free(arr);
 }
+
 
 int main() {
     solve();
